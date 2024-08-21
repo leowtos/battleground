@@ -1,5 +1,7 @@
 package dev.leowtos.aston.homework.battleground;
 
+import dev.leowtos.aston.homework.battleground.hero.*;
+
 import java.util.Scanner;
 
 public class BattleGround {
@@ -13,24 +15,6 @@ public class BattleGround {
 
         Scanner scanner = new Scanner(System.in);
         int choose = scanner.nextInt();
-
-        Hero hero = null;
-
-        if (choose == 1) {
-            hero = new Lillia();
-        } else if (choose == 2) {
-            hero = new Archer("Эш");
-        } else if (choose == 3) {
-            hero = new Warrior("Насус");
-        } else if (choose == 4) {
-            hero = new Mage("Люкс");
-        }
-
-        if (hero == null) {
-            System.out.println("Вы ввели неправильное значение, попробуйте снова");
-        } else {
-            System.out.println("Отличный выбор! Удачи в бою вместе с " + hero.getName());
-        }
 
         int[] levels = {250, 500, 750};
 
@@ -46,14 +30,50 @@ public class BattleGround {
             System.out.println("Такого уровня сложности нет, попробуйте сначала");
         }
 
-        Enemy enemy = new Enemy(levels[level - 1]);
+        Hero hero = null;
+        int health = levels[level - 1];
 
-        while (enemy.isAlive()) {
-            hero.attackEnemy(enemy);
-            System.out.println("У врага осталось : " + enemy.getHealth() + "❤️.");
+        if (choose == 1) {
+            hero = new Lillia(health);
+        } else if (choose == 2) {
+            hero = new Archer("Эш", health);
+        } else if (choose == 3) {
+            hero = new Warrior("Насус", health);
+        } else if (choose == 4) {
+            hero = new Mage("Люкс", health);
         }
 
-        System.out.println("Победа! Враг мёртв 🙌");
+        if (hero == null) {
+            System.out.println("Вы ввели неправильное значение, попробуйте снова");
+            return;
+        } else {
+            System.out.println("Отличный выбор! Удачи в бою вместе с " + hero.getName());
+        }
+
+        Enemy karapuchka = new Karapuchka(levels[level - 1]);
+        Enemy zombie = new Zombie(levels[level - 1]);
+
+        System.out.println("Ваши враги: " + karapuchka.getName() + " и " + zombie.getName());
+
+        while (hero.isAlive() && (karapuchka.isAlive() || zombie.isAlive())) {
+            hero.attack(karapuchka);
+            hero.attack(zombie);
+
+            karapuchka.attack(hero);
+            zombie.attack(hero);
+
+            System.out.println("У Карапучки осталось : " +  karapuchka.getHealth() + "❤️.");
+            System.out.println("У Инстомби осталось : " +  zombie.getHealth() + "❤️.");
+
+            System.out.println("У героя осталось : " + hero.getHealth() + "❤️.");
+        }
+
+        if (hero.isAlive()) {
+            System.out.println("Победа! Враг мёртв 🙌");
+        } else {
+            System.out.println("Враги победили! 😒");
+        }
+
     }
 
 }

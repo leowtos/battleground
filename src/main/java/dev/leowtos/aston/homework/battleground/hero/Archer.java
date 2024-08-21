@@ -1,13 +1,13 @@
-package dev.leowtos.aston.homework.battleground;
+package dev.leowtos.aston.homework.battleground.hero;
 
 public class Archer extends Hero {
 
-    public Archer (String name) {
-        super(name);
+    public Archer (String name, int health) {
+        super(name, health);
     }
 
     @Override
-    public int attackEnemy(Enemy enemy) {
+    public void attack(Hero enemy) {
         boolean left = this.random.nextBoolean();
         if (left) {
             System.out.println("Лучник " + this.name + " попала стрелой в левую филейную часть врага.");
@@ -19,7 +19,6 @@ public class Archer extends Hero {
 
         System.out.println("Враг получил - " + damage + " урона.");
 
-        return damage;
     }
 
 }

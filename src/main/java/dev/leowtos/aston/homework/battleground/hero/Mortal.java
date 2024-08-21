@@ -1,4 +1,4 @@
-package dev.leowtos.aston.homework.battleground;
+package dev.leowtos.aston.homework.battleground.hero;
 
 public interface Mortal {
 

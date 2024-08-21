@@ -1,12 +1,13 @@
-package dev.leowtos.aston.homework.battleground;
+package dev.leowtos.aston.homework.battleground.hero;
 
 public class Warrior extends Hero {
-    public Warrior(String name) {
-        super(name);
+
+    public Warrior(String name, int health) {
+        super(name, health);
     }
 
     @Override
-    public int attackEnemy(Enemy enemy) {
+    public void attack(Hero enemy) {
         System.out.println("Воин " + this.name + " шлепает по попе врага.");
 
         int damage = random.nextInt(4, 40);
@@ -14,7 +15,6 @@ public class Warrior extends Hero {
 
         System.out.println("Враг получил - " + damage + " урона.");
 
-        return damage;
     }
 }
 
